@@ -1,5 +1,6 @@
 import { User } from "../models/user.model.js";
 import bcryptjs from "bcryptjs"
+import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 export async function signup (req, res){
     try {
         const {email, password, username} = req.body;
@@ -24,19 +25,52 @@ export async function signup (req, res){
             username,
             image
         });
-        const saveuser = await newUser.save();
-        res.status(201).json({success: true, user: saveuser});
+        if(newUser){
+            generateTokenAndSetCookie(newUser._id,res);
+            const saveuser = await newUser.save();
+            res.status(201).json({success: true, user: saveuser});
+        }
 
     } catch (error) {
-        console.log(error);
+        console.log("Error in auth controller: " + error.message);
         res.status(500).json({success: false, error: error})
     }
 }
 
 export async function login (req, res){
-    res.send("Welcome to the")
+    try {
+        const {email, password} = req.body;
+        if(!email ||!password) {
+            return res.status(400).json({message: "All fields are required"});
+        }
+
+        const user = await User.findOne({email:email});
+        if(!user){
+            return res.status(401).json({success: false, message: "User not found"});
+        }
+        const passwordCorrect = await bcryptjs.compare(password,user.password);
+        if(!passwordCorrect){
+            console.log(passwordCorrect);
+            return res.status(401).json({success: false, message: "user not found"});
+        }
+
+        generateTokenAndSetCookie(user._id,res);
+        res.json({success: true, message: "Logged in successfully", user:{
+           ...user._doc,
+           password: "",
+        }});
+    }catch (error) {
+            console.log("Error in auth controller: " + error.message);
+            res.status(500).json({success: false, error: error})
+        }
 }
 
 export async function logout (req, res){
-    res.send("Welcome to the")
+    try {
+        res.clearCookie("jwt-netflix");
+        res.status(200).json({success: true, message: "logout successfully" });
+    } catch (error) {
+        console.log("Error in auth controller: " + error.message);
+        res.status(500).json({success: false, error: error})
+    }
 }
