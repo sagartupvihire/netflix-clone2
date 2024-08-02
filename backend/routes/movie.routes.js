@@ -9,4 +9,4 @@ router.get('/:id/details',getMovieDetails);
 router.get('/:id/similar',getSimilarMovies);
 router.get('/:category',getMoviesByCategory);
 
-export default router;
+export default router; 

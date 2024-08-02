@@ -1,0 +1,27 @@
+{
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u00002\u0000\r\u0000 \u0000#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u00002\u0000\r\u0000 \u0000#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u00002\u0000\r\u0000 \u0000",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon backend/server.js start"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "moment-timezone": "^0.5.45",
+    "mongoose": "^8.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

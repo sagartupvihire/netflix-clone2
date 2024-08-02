@@ -40,18 +40,20 @@ export async function signup (req, res){
 export async function login (req, res){
     try {
         const {email, password} = req.body;
+       console.log(email, password);
+       
         if(!email ||!password) {
             return res.status(400).json({message: "All fields are required"});
         }
 
         const user = await User.findOne({email:email});
         if(!user){
-            return res.status(401).json({success: false, message: "User not found"});
+            return res.status(401).json({success: false, message: "User not found in the database"});
         }
         const passwordCorrect = await bcryptjs.compare(password,user.password);
         if(!passwordCorrect){
             console.log(passwordCorrect);
-            return res.status(401).json({success: false, message: "user not found"});
+            return res.status(401).json({success: false, message: "user not found password"});
         }
 
         generateTokenAndSetCookie(user._id,res);

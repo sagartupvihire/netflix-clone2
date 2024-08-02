@@ -6,7 +6,7 @@ import moviesrouter from './routes/movie.routes.js';
 import { ENV_VARS } from './config/envVars.js';
 import { connnectDB } from './config/db.js';
 import tvroutes from './routes/tv.routes.js';
-import searchroutes from './routes/searh.routes.js';
+import searchroutes from './routes/search.routes.js';
 
 import {protectRoutes} from './middlware/protectRoutes.js';
 const app = express();
