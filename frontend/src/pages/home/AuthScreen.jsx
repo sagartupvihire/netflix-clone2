@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import Footer from "../../components/Footer";
 
 const AuthScreen = () => {
     const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const AuthScreen = () => {
             </header>
 
             {/* hero section */}
-            <div className="flex flex-col items-center justify-center text-center py-40 text-white max-w-6xl mx-auto">
+            <div className="flex flex-col items-center  justify-center text-center py-40 text-white max-w-6xl mx-auto">
                 <h1 className="text-4xl md:text-6xl font-bold mb-4">
                     Unlimited movies, TV shows, and more
                 </h1>
@@ -112,29 +113,95 @@ const AuthScreen = () => {
                                 />
                                 <div className="flex  justify-center items-center w-full ">
                                     <div className="flex flex-col  gap-0">
-                                        <span className="text-md max-resize1 lg:text-lg font-bold">Stranger Things</span>
-                                        <span className="text-sm text-blue-500">Downloading...</span>
+                                        <span className="text-md max-resize1 lg:text-lg font-bold">
+                                            Stranger Things
+                                        </span>
+                                        <span className="text-sm text-blue-500">
+                                            Downloading...
+                                        </span>
                                     </div>
-                                    
-                                    <img src="/download-icon.gif" alt="" className="h-12  max-[500px]:ml-4" />
-                                </div>
 
+                                    <img
+                                        src="/download-icon.gif"
+                                        alt=""
+                                        className="h-12  max-[500px]:ml-4"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     {/* right side */}
                     <div className=" flex-1 md:text-left text-center">
-                        <h2 className='text-4xl md:text-5xl font-extrabold mb-4 text-balance'>
-							Download your shows to watch offline
-						</h2>
-						<p className='text-lg md:text-xl'>
-							Save your favorites easily and always have something to watch.
-						</p>
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-balance">
+                            Download your shows to watch offline
+                        </h2>
+                        <p className="text-lg md:text-xl">
+                            Save your favorites easily and always have something
+                            to watch.
+                        </p>
                     </div>
-
                 </div>
             </div>
+
+            {/* separator */}
+            <div className="h-2 w-full bg-[#232323]" aria-hidden="true" />
+
+            {/* 3rd sec */}
+            <div className="py-10 bg-black text-white">
+                <div className="flex max-w-6xl mx-auto items-center justify-center md:flex-row flex-col px-4 md:px-2">
+                    {/* left side */}
+                    <div className="flex-1 text-center md:text-left">
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
+                            Watch everywhere
+                        </h2>
+                        <p className="text-lg md:text-xl">
+                            Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.
+                        </p>
+                    </div>
+                    {/* right side */}
+                    <div className="flex-1 relative overflow-hidden">
+                        <img
+                            src="/device-pile.png"
+                            alt="image"
+                            className="mt-4 z-20 relative"
+                        />
+                        <video
+                            className="absolute top-2 left-1/2 -translate-x-1/2  h-4/6 z-10 max-w-[63%] "
+                            playsInline
+                            autoPlay={true}
+                            muted
+                            loop
+                        >
+                            <source src="/video-devices.m4v" type="video/mp4" />
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+
+            {/* separator */}
+            <div className="h-2 w-full bg-[#232323]" aria-hidden="true" />
+
+            {/* 4th section  */}
+
+            <div className="py-10 bg-black text-white">
+                <div className="flex max-w-6xl mx-auto items-center justify-center flex-col-reverse md:flex-row px-4 md:px-2">
+                    {/* left */}
+					<div className='flex-1 relative'>
+						<img src='/kids.png' alt='Enjoy on your TV' className='mt-4' />
+					</div>
+					{/* right */}
+					<div className='flex-1 text-center md:text-left'>
+						<h2 className='text-4xl md:text-5xl font-extrabold mb-4'>Create profiles for kids</h2>
+						<p className='text-lg md:text-xl'>
+							Send kids on adventures with their favorite characters in a space made just for them—free
+							with your membership.
+						</p>
+					</div>
+                </div>
+            </div>
+            <Footer/>
         </div>
     );
 };
