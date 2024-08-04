@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hero-bg{
+    background-image:linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.1)) ,url('hero.png');
+}
+.max-resize1{
+    background: #000;
+}
+@media (max-width: 512px) {
+    .max-resize1{
+    font-size: 14px;
+}
+}
