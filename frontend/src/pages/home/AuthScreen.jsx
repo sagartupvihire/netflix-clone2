@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
-import Footer from "../../components/Footer";
+
 
 const AuthScreen = () => {
     const [email, setEmail] = useState("");
@@ -201,7 +201,6 @@ const AuthScreen = () => {
 					</div>
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 };

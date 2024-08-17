@@ -1,19 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useAuthStore } from "../store/authUser";
+import { useAuthStore } from "../store/authUser";
+
+import { Eye, EyeOff } from 'lucide-react';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  // const { login, isLoggingIn } = useAuthStore();
+  const { login, isLoggingIn } = useAuthStore();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // login({ email, password });
+    login({ email, password });
     console.log(email, password);
 
+  };
+
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -35,7 +43,7 @@ const LoginPage = () => {
               </label>
               <input
                 type='email'
-                className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
+                className='w-full focus:bg-transparent px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
                 placeholder='you@example.com'
                 id='email'
                 value={email}
@@ -43,18 +51,25 @@ const LoginPage = () => {
               />
             </div>
 
-            <div>
+            <div className="relative">
               <label htmlFor='password' className='text-sm font-medium text-gray-300 block'>
                 Password
               </label>
               <input
-                type='password'
-                className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring'
+                type={showPassword ? 'password' : 'text'}
+                className='w-full px-3 py-2 mt-1 border bg-transparent border-gray-700 rounded-md focus:bg-transparent text-white focus:outline-none focus:ring'
                 placeholder='••••••••'
                 id='password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <div className='absolute flex right-2 py-2 pr-2 top-7 justify-center items-center text-gray-300 bg-t'>
+
+                <button onClick={toggleShowPassword} >
+                  {showPassword ? <Eye className='size-[18px] lg:size-4' /> : <EyeOff className='size-[18px] lg:size-4' />}
+
+                </button>
+              </div>
             </div>
 
             <button
@@ -64,6 +79,7 @@ const LoginPage = () => {
             // disabled={isLoggingIn}
             >
               {/* {isLoggingIn ? "Loading..." : "Login"} */}
+              Login
             </button>
           </form>
           <div className='text-center text-gray-400'>

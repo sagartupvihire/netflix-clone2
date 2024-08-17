@@ -4,12 +4,9 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+
   theme: {
-    extend: {
-      colors:{
-        'netflix-color' :'#e50914'
-      }
-    },
+    extend: {},
   },
   plugins: [],
 }
