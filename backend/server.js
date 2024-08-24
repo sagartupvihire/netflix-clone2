@@ -8,7 +8,10 @@ import { connnectDB } from './config/db.js';
 import tvroutes from './routes/tv.routes.js';
 import searchroutes from './routes/search.routes.js';
 
-import {protectRoutes} from './middlware/protectRoutes.js';
+import {protectRoutes} from './middlware/protectRoutes.js'
+
+import dotenv from 'dotenv'
+dotenv.config()
 const app = express();
 
 app.use(express.json());
@@ -17,8 +20,8 @@ app.use(cookieParser());
 
 const port = ENV_VARS.PORT || 5000;
 app.use('/api/auth', authrouter );
-app.use('/api/movies',protectRoutes,moviesrouter);
-app.use('/api/tv',protectRoutes,tvroutes);
+app.use('/api/movie',protectRoutes,moviesrouter);
+app.use('/api/tvshows',protectRoutes,tvroutes);
 app.use('/api/search',protectRoutes,searchroutes);
 
 app.listen(port,()=>{

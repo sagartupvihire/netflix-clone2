@@ -1,17 +1,17 @@
 import { fetchFromTMDB } from "../services/tmdb.service.js";
 
-export async function getTrendingTV(req,res){
-    try{
-        const data = await fetchFromTMDB('https://api.themoviedb.org/3/trending/movie/day?language=en-US');
-        const randomMovie = data.results[Math.floor(Math.random()*data.results?.length)]
-        res.json({success:true, content:randomMovie})
-    }catch(e) {
-        throw e;
-        res.status(500).json({success: false, error: e.message})
-    }
+export async function getTrendingTv(req, res) {
+	try {
+		const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/tv/day?language=en-US");
+		const randomMovie = data.results[Math.floor(Math.random() * data.results?.length)];
 
-    
+		res.json({ success: true, content: randomMovie });
+	} catch (error) {
+		res.status(500).json({ success: false, message: "Internal Server Error" });
+	}
 }
+
+
 
 export async function getTvTrailers(req, res) {
 	const { id } = req.params;

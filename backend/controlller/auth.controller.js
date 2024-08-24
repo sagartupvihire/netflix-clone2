@@ -41,6 +41,7 @@ export async function signup (req, res){
     }
 }
 
+
 export async function login (req, res){
     try {
         const {email, password} = req.body;
@@ -82,7 +83,7 @@ export async function logout (req, res){
 }
 export async function authCheck (req, res){
     try {
-        console.log("req.user:", req.user);
+        
 		res.status(200).json({ success: true, user: req.user });
     } catch (error) {
         console.log("Error in auth controller: " + error.message);
