@@ -2,33 +2,33 @@ import { User } from "../models/user.model.js";
 import { fetchFromTMDB } from "../services/tmdb.service.js";
 import moment from "moment-timezone";
 export async function searchPerson(req, res) {
-    const { query } = req.params;
-    try {
-        const response = await fetchFromTMDB(`
-            https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=1`);
+	const { query } = req.params;
+	try {
+		const response = await fetchFromTMDB(
+			`https://api.themoviedb.org/3/search/person?query=${query}&include_adult=false&language=en-US&page=1`
+		);
 
-        if (response.results.length === 0) {
-            return res.status(404).json({ success: false, message: "No results found" });
-        }
-        res.status(200).json({ success: true, people: response.results });
+		if (response.results.length === 0) {
+			return res.status(404).send(null);
+		}
 
-        await User.findByIdAndUpdate(req.user._id, {
-            $push: {
-                searchHistory: {
-                    id: response.results[0].id,
-                    image: response.results[0].profile_path,
-                    title: response.results[0].name,
-                    searchType: "person",
-                    createdAt: moment().tz('Asia/Kolkata').format('YYYY-MM-DD hh:mm A'),
-                }
-            }
-        });
-    } catch (error) {
-        console.log("error in searchperson", error.message);
+		await User.findByIdAndUpdate(req.user._id, {
+			$push: {
+				searchHistory: {
+					id: response.results[0].id,
+					image: response.results[0].profile_path,
+					title: response.results[0].name,
+					searchType: "person",
+					createdAt: new Date(),
+				},
+			},
+		});
 
-        res.status(500).json({ success: false, message: "Internal Server Error" });
-
-    }
+		res.status(200).json({ success: true, content: response.results });
+	} catch (error) {
+		console.log("Error in searchPerson controller: ", error.message);
+		res.status(500).json({ success: false, message: "Internal Server Error" });
+	}
 }
 export async function searchTv(req, res) {
     const { query } = req.params;
@@ -36,7 +36,7 @@ export async function searchTv(req, res) {
         const response = await fetchFromTMDB(`
            https://api.themoviedb.org/3/search/tv?query=${query}&include_adult=false&language=en-US&page=1`);
         if (response.length === 0) {
-            return res.status(404).json({ success: false, message: "No results found" });
+            return res.status(404).json({ success: false, content: "No results found" });
         }
         await User.findByIdAndUpdate(req.user._id, {
             $push: {
@@ -49,7 +49,7 @@ export async function searchTv(req, res) {
                 }
             }
         })
-        res.status(200).json({ success: true, movies: response.results });
+        res.status(200).json({ success: true, content: response.results });
     } catch (e) {
         console.log("error in searchmovie", e.message);
         res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -61,8 +61,8 @@ export async function searchMovie(req, res) {
     try {
         const response = await fetchFromTMDB(`
            https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`);
-        if (response.length === 0) {
-            return res.status(404).json({ success: false, message: "No results found" });
+        if (response?.length === 0) {
+            return res.status(404).json({ success: false, results: "No results found" });
         }
         await User.findByIdAndUpdate(req.user._id, {
             $push: {
@@ -75,7 +75,7 @@ export async function searchMovie(req, res) {
                 }
             }
         })
-        res.status(200).json({ success: true, movies: response.results });
+        res.status(200).json({ success: true, content: response?.results });
     } catch (e) {
         console.log("error in searchmovie", e);
         res.status(500).json({ success: false, message: "Internal Server Error" });

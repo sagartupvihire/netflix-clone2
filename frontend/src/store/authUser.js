@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Check } from 'lucide-react'
 import toast from 'react-hot-toast'
 import {create} from 'zustand'
 
@@ -6,6 +7,7 @@ export const useAuthStore = create((set)=>({
     user:null,
     isSigningUp :false,
     isChekingAuth :true,
+    Check :false,
     isLoggedIn : false,
     isSigningIn : false,
     isloggingOut : false,
@@ -28,7 +30,7 @@ export const useAuthStore = create((set)=>({
         set({isSigningIn : true})
         try {
             const response = await axios.post('/api/auth/login', credentials)
-            console.log(response, 'success') ;
+         
             
             set({user: response.data.user, isLoggedIn:true, isSigningIn:false})
             toast.success("Logged in successfully")
@@ -41,12 +43,16 @@ export const useAuthStore = create((set)=>({
     },
     authCheck: async () => {
         set({isChekingAuth: true})
+        set({Check : true})
+        
+        
         try {
             const response = await axios.get('/api/auth/authcheck')
             
-            set({user: response.data.user, isChekingAuth:false})
+            set({user: response.data.user, isChekingAuth:false, check: false})
         } catch (error) {
             set({isChekingAuth :false, user:null})
+            set({check: false})
             console.log(error);
         }
     },

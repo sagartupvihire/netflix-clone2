@@ -31,7 +31,7 @@ export async function getTvDetails(req, res) {
     const {id} = req.params;
     try {
 		const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}?language=en-US`)
-		res.status(200).json({ success: true, message: data})
+		res.status(200).json({ success: true, content: data})
 	} catch (error) {
 		if (error.message.includes("404")) {
 			return res.status(404).send(null);
@@ -44,7 +44,7 @@ export async function getSimilarTv(req, res) {
 	const { id } = req.params;
     try {
         const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/similar?language=en-US&page=1`);
-        res.json({ success: true, similarMovies: data.results });
+        res.json({ success: true, similar: data.results });
     } catch (error) {
         if (error.message.includes("404")) {
             return res.status(404).send(null);
@@ -58,7 +58,7 @@ export async function getTvByCategory(req, res) {
 	const {category} = req.params;
 	try{
 		const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${category}?language=en-US&page=1`);
-        res.json({ success: true, movies: data.results });
+        res.json({ success: true, content: data.results });
 	}catch(err) {
 		res.status(500).json({ success: false, message:err.message });
 	}
