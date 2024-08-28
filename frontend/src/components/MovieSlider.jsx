@@ -22,6 +22,7 @@ const MovieSlider = ({ category }) => {
     getContent();
 
   }, [contentType, category]);
+console.log(content);
 
   const scrollLeft =() =>{
     if(slideRef.current){
