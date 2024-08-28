@@ -1,12 +1,12 @@
 import express from "express";
 import { 
     getSimilarTv,
-    getTrendingTV,
+    getTrendingTv,
     getTvByCategory,
     getTvDetails,
       } from "../controlller/tv.controller.js";
 const router = express.Router(); 
-router.get('/trending', getTrendingTV);
+router.get('/trending', getTrendingTv);
 router.get('/:id/trailers',getTvDetails);
 router.get('/:id/details',getTvDetails);
 router.get('/:id/details',getTvDetails);

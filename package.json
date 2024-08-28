@@ -4,9 +4,11 @@
   "description": "��#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u0000\r\u0000 \u0000#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u00002\u0000\r\u0000 \u0000#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u00002\u0000\r\u0000 \u0000#\u0000 \u0000n\u0000e\u0000t\u0000f\u0000l\u0000i\u0000x\u0000-\u0000c\u0000l\u0000o\u0000n\u0000e\u00002\u0000\r\u0000 \u0000",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon backend/server.js start"
-  },
+  "dev": "cross-env NODE_ENV=development nodemon backend/server.js",
+  "start": "cross-env NODE_ENV=production node backend/server.js",
+  "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+}
+,
   "keywords": [],
   "author": "",
   "type": "module",
@@ -19,7 +21,9 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "moment-timezone": "^0.5.45",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.2",
+    "react-hot-toast": "^2.4.1",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
