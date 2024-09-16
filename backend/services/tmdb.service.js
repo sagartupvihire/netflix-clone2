@@ -2,10 +2,11 @@ import axios from "axios";
 import { ENV_VARS } from "../config/envVars.js";
 
 export const fetchFromTMDB = async (url) => {
+	console.log("request hits")
 	try{const options = {
 		headers: {
 			accept: "application/json",
-			Authorization: "bearer " + ENV_VARS.TMDB_API_KEY,
+			Authorization: "Bearer " + ENV_VARS.TMDB_API_KEY,
 		},
 	};
 	if (!process.env.TMDB_API_KEY) {
@@ -19,5 +20,5 @@ export const fetchFromTMDB = async (url) => {
 	}
 
 	return response.data;}
-	catch(error){console.log(error.message);}
+	catch(error){console.log("error in Tmdb",error.message);}
 };

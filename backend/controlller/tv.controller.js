@@ -1,3 +1,4 @@
+import { MovieSaveInDb } from "../models/similarMovie.model.js";
 import { fetchFromTMDB } from "../services/tmdb.service.js";
 
 export async function getTrendingTv(req, res) {
@@ -44,6 +45,13 @@ export async function getSimilarTv(req, res) {
 	const { id } = req.params;
     try {
         const data = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/similar?language=en-US&page=1`);
+		await MovieSaveInDb.insertMany(data.results)
+		.then(savedMovies => {
+			console.log('Movies saved successfully:', savedMovies);
+		})
+		.catch(err => {
+			console.error('Error saving movies:', err);
+		});
         res.json({ success: true, similar: data.results });
     } catch (error) {
         if (error.message.includes("404")) {

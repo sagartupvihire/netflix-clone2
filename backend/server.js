@@ -10,6 +10,8 @@ import searchroutes from './routes/search.routes.js';
 import path from "path"
 import {protectRoutes} from './middlware/protectRoutes.js'
 
+import { fetchData } from './config/fectFromMongoDb.js';
+
 import dotenv from 'dotenv'
 dotenv.config()
 const app = express();
@@ -36,5 +38,6 @@ app.listen(port,()=>{
 Server is running on port http://localhost:${port}
 `);
     connnectDB();
+    // fetchData();
 });
 

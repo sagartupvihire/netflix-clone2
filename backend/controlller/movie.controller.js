@@ -1,12 +1,21 @@
 import { fetchFromTMDB } from "../services/tmdb.service.js";
-
+import { MovieSaveInDb } from "../models/similarMovie.model.js";
+import { fetchData } from "../config/fectFromMongoDb.js";
 export async function getTrendingMovie(req, res) {
 	try {
-		const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/movie/day?language=en-US");
-		const randomMovie = data.results[Math.floor(Math.random() * data.results?.length)];
+		// const data = await fetchFromTMDB("https://api.themoviedb.org/3/trending/movie/day?language=en-US");
 
-		res.json({ success: true, content: randomMovie });
+		const data = await fetchData();
+		
+		console.log(data);	
+		
+
+
+		const randomMovie = data[Math.floor(Math.random() * data?.length)];
+
+		res.json( randomMovie );
 	} catch (error) {
+		throw error
 		res.status(500).json({ success: false, message: "Internal Server Error" });
 	}
 }
@@ -45,7 +54,15 @@ export async function getSimilarMovies(req, res) {
         const data = await fetchFromTMDB(`https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`);
 		console.log(data.results);
 		
-        res.json({ success: true, similar: data.results });
+		await MovieSaveInDb.insertMany(data.results)
+		.then(savedMovies => {
+			console.log('Movies saved successfully:', savedMovies);
+		})
+		.catch(err => {
+			console.error('Error saving movies:', err);
+		});
+		
+		res.json({ success: true, similar: data.results });
     } catch (error) {
         if (error.message.includes("404")) {
             return res.status(404).send(null);

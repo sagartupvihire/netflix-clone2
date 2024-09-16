@@ -43,13 +43,13 @@ const HomeScreen = () => {
               {trendingContent?.title || trendingContent?.name}
             </h1>
             <p className='mt-2 text-lg'>
-							{trendingContent?.release_date?.split("-")[0] ||
-								trendingContent?.first_air_date.split("-")[0]}{" "}
-							| {trendingContent?.adult ? "18+" : "PG-13"}
+							{/* {trendingContent?.release_date?.split("-")[0] ||
+								trendingContent?.first_air_date?.split("-")[0]}{" "}
+							| {trendingContent?.adult ? "18+" : "PG-13"} */}
 						</p>
 
             <p className="mt-4 text-lg">
-              {trendingContent?.overview.length > 200 ? trendingContent.overview.slice(0, 200) + "..." : trendingContent?.overview}
+              {trendingContent?.overview?.length > 200 ? trendingContent.overview.slice(0, 200) + "..." : trendingContent?.overview}
             </p>
           </div>
           <div className="flex mt-8">
